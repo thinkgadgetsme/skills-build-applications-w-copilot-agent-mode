@@ -25,7 +25,14 @@ SECRET_KEY = 'django-insecure-j)2^i_lj3!zj)uo74k*41l97f7e4o_dg$6y5rxgtp5hvz8*fv)
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['*']
+import os
+
+# Dynamically set allowed hosts for codespace and localhost
+codespace_name = os.environ.get('CODESPACE_NAME')
+codespace_host = f"{codespace_name}-8000.app.github.dev" if codespace_name else None
+ALLOWED_HOSTS = ['localhost', '127.0.0.1']
+if codespace_host:
+    ALLOWED_HOSTS.append(codespace_host)
 
 
 # Application definition
